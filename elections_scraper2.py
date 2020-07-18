@@ -70,9 +70,8 @@ def votes_parties(parsed):
             for row in table.find_all("tr")[2:]:
                 vote = row.find_all("td")[2].text
                 party = row.find_all("td")[1].text
-                if vote != "-" or party != "-":
-                    results.setdefault(party, vote)
-        return results
+                results.setdefault(party, vote)
+        return dict(filter(lambda x: x[0] != '-', results.items()))
 
     except AttributeError:
         print("Given cell indexes in the row are not correct")
